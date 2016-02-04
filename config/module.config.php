@@ -1,33 +1,29 @@
 <?php
 
 return array(
-    
-    'service_manager' => array(
-        
-        'factories' => array(
-            
-            'ReverseOAuth2\Google' => 'ReverseOAuth2\Client\GoogleFactory',
-            
-            'ReverseOAuth2\LinkedIn' => 'ReverseOAuth2\Client\LinkedInFactory',
 
-            'ReverseOAuth2\Github' => 'ReverseOAuth2\Client\GithubFactory',
-            
-            'ReverseOAuth2\Facebook' => 'ReverseOAuth2\Client\FacebookFactory'
-            
+    'service_manager' => array(
+
+        'factories' => array(
+            'ReverseOAuth2\Google'      => 'ReverseOAuth2\Client\GoogleFactory',
+            'ReverseOAuth2\LinkedIn'    => 'ReverseOAuth2\Client\LinkedInFactory',
+            'ReverseOAuth2\Github'      => 'ReverseOAuth2\Client\GithubFactory',
+            'ReverseOAuth2\Facebook'    => 'ReverseOAuth2\Client\FacebookFactory',
+            'ReverseOAuth2\Instagram'   => 'ReverseOAuth2\Client\InstagramFactory',
         ),
-        
+
         'invokables' => array(
-            'ReverseOAuth2\Auth\Adapter' => 'ReverseOAuth2\Authentication\Adapter\ReverseOAuth2',  
+            'ReverseOAuth2\Auth\Adapter' => 'ReverseOAuth2\Authentication\Adapter\ReverseOAuth2',
         ),
-        
+
     ),
-    
+
     'reverseoauth2' => array(
-        
+
         'google' => array(
             'scope' => array(
                 'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/userinfo.email'   
+                'https://www.googleapis.com/auth/userinfo.email'
              ),
             'auth_uri'      => 'https://accounts.google.com/o/oauth2/auth',
             'token_uri'     => 'https://accounts.google.com/o/oauth2/token',
@@ -36,7 +32,7 @@ return array(
             'client_secret' => 'your secret',
             'redirect_uri'  => 'your callback url which links to your controller',
         ),
-        
+
         'facebook' => array(
             'scope' => array(
                 /*
@@ -54,7 +50,25 @@ return array(
             'client_secret' => 'your secret',
             'redirect_uri'  => 'your callback url which links to your controller',
         ),
-            
+
+        'instagram' => array(
+            'scope' => array(
+                /*
+                'user_about_me',
+                'user_activities',
+                'user_birthday',
+                'read_friendlists',
+                //'...'
+                */
+             ),
+            'auth_uri'      => 'https://api.instagram.com/oauth/authorize/',
+            'token_uri'     => 'https://api.instagram.com/oauth/access_token',
+            'info_uri'      => 'https://api.instagram.com/v1/users/self',
+            'client_id'     => 'your id',
+            'client_secret' => 'your secret',
+            'redirect_uri'  => 'your callback url which links to your controller',
+        ),
+
         'github' => array(
             'scope' => array(
                 /*
@@ -94,5 +108,5 @@ return array(
         ),
 
     )
-    
+
 );
