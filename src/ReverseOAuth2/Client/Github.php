@@ -9,10 +9,10 @@ class Github extends AbstractOAuth2Client
 {
 
     protected $providerName = 'github';
-    
+
     public function getUrl()
     {
-        
+
         $url = $this->options->getAuthUri().'?'
             . 'redirect_uri='  . urlencode($this->options->getRedirectUri())
             . '&client_id='    . $this->options->getClientId()
@@ -20,25 +20,25 @@ class Github extends AbstractOAuth2Client
             . $this->getScope(',');
 
         return $url;
-        
+
     }
-    
-    
-    public function getToken(Request $request) 
+
+
+    public function getToken(Request $request)
     {
-        
+
         if(isset($this->session->token)) {
-        
+
             return true;
-            
+
         } elseif(strlen($this->session->state) > 0 AND $this->session->state == $request->getQuery('state') AND strlen($request->getQuery('code')) > 5) {
-            
+
             $client = $this->getHttpClient();
-            
+
             $client->setUri($this->options->getTokenUri());
-            
+
             $client->setMethod(Request::METHOD_POST);
-            
+
             $client->setParameterPost(array(
                 'code'          => $request->getQuery('code'),
                 'client_id'     => $this->options->getClientId(),
@@ -46,23 +46,23 @@ class Github extends AbstractOAuth2Client
                 'redirect_uri'  => $this->options->getRedirectUri(),
                 'state'         => $this->getState()
             ));
-            
-            $retVal = $client->send()->getContent();
-            
-            parse_str($retVal, $token);      
-            
+
+            $retVal = $client->send()->getBody();
+
+            parse_str($retVal, $token);
+
             if(is_array($token) AND isset($token['access_token'])) {
-                
+
                 $this->session->token = (object)$token;
                 return true;
-                
+
             } else {
-                
-                $this->error = array('error' => $retVal, 'internal-error' => 'Unknown error.');                
+
+                $this->error = array('error' => $retVal, 'internal-error' => 'Unknown error.');
                 return false;
-                
+
             }
-            
+
         } else {
 
             $this->error = array(
@@ -71,11 +71,11 @@ class Github extends AbstractOAuth2Client
                 'request-state' => $request->getQuery('state'),
                 'code'          => $request->getQuery('code')
             );
-            
+
             return false;
-            
+
         }
-        
+
     }
-    
+
 }

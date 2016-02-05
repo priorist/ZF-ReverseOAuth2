@@ -46,7 +46,7 @@ class Facebook extends AbstractOAuth2Client
                 'redirect_uri'  => $this->options->getRedirectUri()
             ));
 
-            $retVal = $client->send()->getContent();
+            $retVal = $client->send()->getBody();
 
             parse_str($retVal, $token);
 
