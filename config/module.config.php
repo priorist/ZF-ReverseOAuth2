@@ -6,6 +6,7 @@ return array(
 
         'factories' => array(
             'ReverseOAuth2\Google'      => 'ReverseOAuth2\Client\GoogleFactory',
+            'ReverseOAuth2\Youtube'     => 'ReverseOAuth2\Client\YoutubeFactory',
             'ReverseOAuth2\LinkedIn'    => 'ReverseOAuth2\Client\LinkedInFactory',
             'ReverseOAuth2\Github'      => 'ReverseOAuth2\Client\GithubFactory',
             'ReverseOAuth2\Facebook'    => 'ReverseOAuth2\Client\FacebookFactory',
@@ -24,6 +25,18 @@ return array(
             'scope' => array(
                 'https://www.googleapis.com/auth/userinfo.profile',
                 'https://www.googleapis.com/auth/userinfo.email'
+             ),
+            'auth_uri'      => 'https://accounts.google.com/o/oauth2/auth',
+            'token_uri'     => 'https://accounts.google.com/o/oauth2/token',
+            'info_uri'      => 'https://www.googleapis.com/oauth2/v1/userinfo',
+            'client_id'     => 'your id',
+            'client_secret' => 'your secret',
+            'redirect_uri'  => 'your callback url which links to your controller',
+        ),
+
+        'youtube' => array(
+            'scope' => array(
+                'https://www.googleapis.com/auth/youtube.readonly',
              ),
             'auth_uri'      => 'https://accounts.google.com/o/oauth2/auth',
             'token_uri'     => 'https://accounts.google.com/o/oauth2/token',
